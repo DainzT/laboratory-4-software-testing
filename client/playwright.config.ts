@@ -33,13 +33,24 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
   },
-    webServer: {
-    command: 'concurrently -k -s first -n FRONTEND,BACKEND "npm run dev" "npm run start:backend"',
-    url: process.env.BASE_URL || 'http://localhost:5173',
-    reuseExistingServer: !process.env.CI,
-    stdout: 'pipe',
-    stderr: 'pipe',
-  },
+  webServer: [
+    {
+      command: 'npm run dev',
+      port: 5173,
+      timeout: 30 * 1000,
+      reuseExistingServer: !process.env.CI,
+      stdout: 'pipe',
+      stderr: 'pipe',
+    },
+    {
+      command: 'npm run start:backend',
+      port: 3002,
+      timeout: 30 * 1000,
+      reuseExistingServer: !process.env.CI,
+      stdout: 'pipe',
+      stderr: 'pipe',
+    },
+  ],
   /* Configure projects for major browsers */
   projects: [
     {

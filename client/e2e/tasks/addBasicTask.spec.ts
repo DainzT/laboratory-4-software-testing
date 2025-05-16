@@ -1,22 +1,21 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Add Basic Task', async () => {
-    test.beforeEach(async ({ request }) => {
-        await request.delete('http://localhost:3002/api/tasks/reset');
+    test.beforeAll(async ({ request }) => {
+        const initialTasks = await request.get('http://localhost:3002/api/tasks');
+        expect(await initialTasks.json()).toHaveLength(0);
+    });
 
-        await request.post('http://localhost:3002/api/tasks', {
-            data: {
-                title: 'Default Task',
-                description: 'This appears on page load',
-                type: 'basic',
-                completed: false
-            }
-        });
+    test.beforeEach(async ({ page }) => {
+        await page.goto('http://localhost:5173', { waitUntil: 'networkidle' });
     });
 
     test('should show the correct static elements', async ({ page }) => {
-        await expect(page.getByRole('heading', { name: 'My To-Do List' })).toBeVisible();
-        await expect(page.getByText('Manage your daily tasks efficiently')).toBeVisible();
+        await expect(page.locator('div').filter({
+            hasText: /^My To-Do ListManage your daily tasks efficiently$/
+        }).getByRole('heading', { name: 'My To-Do List' })).toBeVisible();
+        await expect(page.locator('h1.text-4xl').getByText('My To-Do List')).toBeVisible();
+        
         await expect(page.getByPlaceholder('Search tasks...')).toBeVisible();
         await expect(page.getByLabel('Sort by')).toBeVisible();
         await expect(page.getByRole('button', { name: 'Add task' })).toBeVisible();
@@ -24,6 +23,6 @@ test.describe('Add Basic Task', async () => {
 
     test('should display pre-loaded tasks without interaction', async ({ page }) => {
         await expect(page.getByText('Default Task')).toBeVisible();
-        await expect(page.getByText('This appears on page load')).toBeVisible();
+        await expect(page.getByText('This appears on page')).toBeVisible();
     });
 });

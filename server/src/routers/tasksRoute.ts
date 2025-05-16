@@ -124,6 +124,7 @@ router.put("/tasks/:id", async (req: Request, res: Response): Promise<void> => {
     }
 });
 
+
 router.delete("/tasks/reset", async (req: Request, res: Response): Promise<void> => {
     try {
         await prisma.checklistItem.deleteMany({});
