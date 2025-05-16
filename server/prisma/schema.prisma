@@ -13,30 +13,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model SurveyResponse {
-  id        Int      @id @default(autoincrement())
-  answer    String[] @db.Text
-  createdAt DateTime @default(now())
-}
-
-model EmployeeData {
-  id        Int      @id @default(autoincrement())
-  name      String   @db.Text
-  salary    Int      @db.Integer
-}
-
-model Employee {
-  id                    String   @id @default(uuid()) 
-  firstName             String
-  lastName              String
-  groupName             String
-  role                  String
-  expectedSalary        Int      @db.Integer
-  expectedDateOfDefense DateTime
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
-}
-
 enum TaskType {
   basic
   timed

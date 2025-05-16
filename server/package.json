@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "nodemon src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "test": "cross-env NODE_ENV=test dotenv -e .env.test -- nodemon src/server.ts",
+    "test:setup": "cross-env NODE_ENV=test dotenv -e .env.test -- prisma db push --force-reset"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +24,8 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.8",
+    "cross-env": "^7.0.3",
+    "dotenv-cli": "^8.0.0",
     "nodemon": "^3.1.9",
     "prisma": "^6.4.1",
     "ts-node": "^10.9.2",
