@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test:e2e": "npx playwright test",
+    "start:frontend": "cd ../client && npm run dev",
     "start:backend": "cd ../server && npm run test"
   },
   "dependencies": {
