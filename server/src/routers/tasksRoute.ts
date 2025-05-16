@@ -57,6 +57,18 @@ router.post("/tasks", async (req: Request, res: Response): Promise<void> => {
     }
 });
 
+router.delete("/tasks/reset", async (req: Request, res: Response): Promise<void> => {
+    try {
+        await prisma.checklistItem.deleteMany();
+        await prisma.task.deleteMany();
+
+        res.status(200).json({ message: "All tasks have been reset." });
+    } catch (error) {
+        console.error("Error resetting tasks:", error);
+        res.status(500).json({ message: "Failed to reset tasks" });
+    }
+});
+
 router.delete("/tasks/:id", async (req: Request, res: Response): Promise<void> => {
     const { id } = req.params
     try {
@@ -121,19 +133,6 @@ router.put("/tasks/:id", async (req: Request, res: Response): Promise<void> => {
         console.error("Error updating task:", error);
         res.status(500).json({ message: "Failed to update task" });
         return;
-    }
-});
-
-
-router.delete("/tasks/reset", async (req: Request, res: Response): Promise<void> => {
-    try {
-        await prisma.checklistItem.deleteMany({});
-        await prisma.task.deleteMany({});
-
-        res.status(200).json({ message: "All tasks have been reset." });
-    } catch (error) {
-        console.error("Error resetting tasks:", error);
-        res.status(500).json({ message: "Failed to reset tasks" });
     }
 });
 
