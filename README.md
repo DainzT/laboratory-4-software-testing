@@ -2,7 +2,7 @@ Kaizen Somosera & Dainz Trasadas
 # Initialize
     - git clone "https://github.com/DainzT/laboratory-4-software-testing.git"
 
-# Set up Environmentail Variables
+# Set up Environmental Variables
     # Frontend (client)
         ### Create a .env and .env.test file and put the following inside:
             - VITE_API_BASE_URL=http://localhost:3002/api
@@ -18,3 +18,4 @@ Kaizen Somosera & Dainz Trasadas
     - run "npm run test:e2e"
 
 *ps. some tests will have an error due to the internet connection, slow testing browsers, or just the browser being buggy >:(*
+*if so, rerun the test*
