@@ -1,4 +1,3 @@
-# SE COMPONENTS Repository
-    Creator: Dainz Andrei L. Trasadas
-   
-
+# Frontend
+- Create a .env file and put the following inside:
+    VITE_API_BASE_URL=http://localhost:3002/api
